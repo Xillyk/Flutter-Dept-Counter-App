@@ -1,18 +1,6 @@
 import 'package:flutter/material.dart';
-
-class DeptAddFormPage extends StatelessWidget {
-  const DeptAddFormPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Add Dept'),
-      ),
-      body: DeptAddForm(),
-    );
-  }
-}
+import 'package:dept_counter/modules/scheduler.dart';
+import 'package:provider/provider.dart';
 
 class DeptAddForm extends StatefulWidget {
   const DeptAddForm({Key? key}) : super(key: key);
@@ -26,117 +14,124 @@ class _DeptAddFormState extends State<DeptAddForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: ListView(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextFormField(
-              decoration: InputDecoration(
-                fillColor: Colors.white70,
-                filled: true,
-                labelText: 'Topic',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+    // final scheduler = Provider.of<Scheduler>(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Add Dept'),
+      ),
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  fillColor: Colors.white70,
+                  filled: true,
+                  labelText: 'Topic',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Topic required!';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Topic required!';
-                }
-                return null;
-              },
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextFormField(
-              decoration: InputDecoration(
-                fillColor: Colors.white70,
-                filled: true,
-                labelText: 'Info',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  fillColor: Colors.white70,
+                  filled: true,
+                  labelText: 'Info',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Topic required!';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Topic required!';
-                }
-                return null;
-              },
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextFormField(
-              decoration: InputDecoration(
-                fillColor: Colors.white70,
-                filled: true,
-                labelText: 'Total Dept',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  fillColor: Colors.white70,
+                  filled: true,
+                  labelText: 'Total Dept',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Total Dept required!';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Total Dept required!';
-                }
-                return null;
-              },
             ),
-          ),
-          // Text('Start'),
-          StartDatePickerWidget(),
-          EndDatePickerWidget(),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextFormField(
-              decoration: InputDecoration(
-                fillColor: Colors.white70,
-                filled: true,
-                labelText: 'Month',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+            StartDatePickerWidget(),
+            EndDatePickerWidget(),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  fillColor: Colors.white70,
+                  filled: true,
+                  labelText: 'Month',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Month required!';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Month required!';
-                }
-                return null;
-              },
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextFormField(
-              decoration: InputDecoration(
-                fillColor: Colors.white70,
-                filled: true,
-                labelText: 'Interest',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  fillColor: Colors.white70,
+                  filled: true,
+                  labelText: 'Interest',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Interest required!';
+                  }
+                  return null;
+                },
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Interest required!';
-                }
-                return null;
-              },
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                Navigator.pop(context);
-              }
-            },
-            child: Text('Confirm'),
-          )
-        ],
+            ElevatedButton(
+              onPressed: () {
+                // scheduler.update();
+                if (_formKey.currentState!.validate()) {
+                  // Navigator.pop(context);
+                }
+              },
+              child: Text('Confirm'),
+            ),
+          ],
+        ),
       ),
     );
   }

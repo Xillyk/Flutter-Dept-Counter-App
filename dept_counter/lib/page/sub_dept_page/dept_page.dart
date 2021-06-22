@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:dept_counter/page/sub_dept_page/dept_add_form_page.dart';
+import 'package:provider/provider.dart';
+import 'package:dept_counter/modules/scheduler.dart';
 
 class DeptPage extends StatelessWidget {
-  const DeptPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Dept Page'),
-      ),
-      body: DeptItemCardList(),
-      floatingActionButton: FloatingActionButton.extended(
+    return ChangeNotifierProvider(
+      create: (context) => Scheduler(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Dept Page'),
+        ),
+        body: DeptItemCardList(),
+        floatingActionButton: FloatingActionButton.extended(
           icon: const Icon(Icons.add),
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => DeptAddFormPage()));
+                MaterialPageRoute(builder: (context) => DeptAddForm()));
           },
-          label: const Text('Create')),
+          label: const Text('Create'),
+        ),
+      ),
     );
   }
 }
@@ -30,8 +34,12 @@ class DeptItemCardList extends StatefulWidget {
 }
 
 class _DeptItemCardListState extends State<DeptItemCardList> {
+  var name = 'normal';
+
   void _updateListView() {
-    setState(() {});
+    setState(() {
+      name = 'updated!';
+    });
   }
 
   Widget _buildDeptListView() {
@@ -59,6 +67,15 @@ class _DeptItemCardListState extends State<DeptItemCardList> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildDeptListView();
+    // return _buildDeptListView();
+    return Consumer<Scheduler>(
+      builder: (context, scheduler, _) => Container(
+        child: Text('555'),
+      ),
+    );
+
+    // return Container(
+    //   child: Text('$name'),
+    // );
   }
 }

@@ -3,43 +3,48 @@ import 'package:dept_counter/page/home_page.dart';
 import 'package:dept_counter/page/authen_page/register_page.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          margin: EdgeInsets.only(top: 20.0),
-          height: 592.0,
-          child: Form(
-            child: Column(
+      body: Container(
+        // color: Colors.orange,
+        margin: EdgeInsets.only(top: 20.0),
+        height: 592.0,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Sign In',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            LoginForm(),
+            SizedBox(height: 30.0),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  'Sign In',
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                ),
-                LoginForm(),
-                Row(
-                  children: <Widget>[
-                    Text("Don't have account?"),
-                    GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RegisterPage(),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text('Register'),
-                      ),
+                Text("Don't have account?"),
+                SizedBox(width: 10.0),
+                GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RegisterPage(),
                     ),
-                  ],
+                  ),
+                  child: Text(
+                    'Register',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ],
             ),
-          ),
+          ],
         ),
       ),
     );

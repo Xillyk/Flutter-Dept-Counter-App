@@ -1,125 +1,163 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:dept_counter/page/sub_dept_page/dept_page.dart';
 import 'package:dept_counter/page/sub_summary_page/summary_page.dart';
 import 'package:dept_counter/page/account/account_setting_page.dart';
 
 class Homepage extends StatelessWidget {
-  const Homepage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amber,
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: Text('Home'),
       ),
-      body: Center(
+      body: Container(
+        padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             DeptCard(),
             SummaryCard(),
           ],
         ),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('User'),
+      drawer: HomeDrawer(),
+    );
+  }
+}
+
+class HomeDrawer extends StatelessWidget {
+  final name = 'Benz';
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
             ),
-            ListTile(
-              title: Text('Account'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AccountSettingPage(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                CircleAvatar(
+                  backgroundImage: AssetImage('assets/benz.jpg'),
+                  radius: 40.0,
+                ),
+                Text(
+                  'Hi $name',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                );
-              },
+                ),
+              ],
             ),
-            ListTile(
-              title: Text('Logout'),
-              onTap: () {
-                // ScaffoldMessenger.of(context).showSnackBar(
-                //   SnackBar(
-                //     content: Text('See you soon'),
-                //   ),
-                // );
-              },
+          ),
+          ListTile(
+            title: Text(
+              'Account',
+              style: TextStyle(
+                fontSize: 18.0,
+              ),
             ),
-          ],
-        ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AccountSettingPage(),
+                ),
+              );
+            },
+          ),
+          Divider(
+            height: 15.0,
+            thickness: 2.0,
+          ),
+          ListTile(
+            title: Text(
+              'Logout',
+              style: TextStyle(
+                fontSize: 18.0,
+              ),
+            ),
+            onTap: () {
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   SnackBar(
+              //     content: Text('See you soon'),
+              //   ),
+              // );
+            },
+          ),
+        ],
       ),
     );
   }
 }
 
 class DeptCard extends StatelessWidget {
-  const DeptCard({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 150,
-            width: 350,
-            child: Card(
-              child: InkWell(
-                child: Column(
-                  children: <Widget>[
-                    Text('Dept Reminder'),
-                  ],
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DeptPage()));
-                },
-                splashColor:
-                    Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+    return Expanded(
+      flex: 1,
+      child: Card(
+        child: InkWell(
+          child: Center(
+            child: Text(
+              'Dept Reminder',
+              style: TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
-        ],
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DeptPage(),
+              ),
+            );
+          },
+          splashColor:
+              Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+        ),
       ),
     );
   }
 }
 
 class SummaryCard extends StatelessWidget {
-  const SummaryCard({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 150,
-            width: 350,
-            child: Card(
-              child: InkWell(
-                child: Column(
-                  children: <Widget>[
-                    Text('Summary'),
-                  ],
-                ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SummaryPage()));
-                },
-                splashColor:
-                    Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+    return Expanded(
+      flex: 1,
+      child: Card(
+        child: InkWell(
+          child: Center(
+            child: Text(
+              'Summary',
+              style: TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
-        ],
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SummaryPage(),
+              ),
+            );
+          },
+          splashColor:
+              Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+        ),
       ),
     );
   }
