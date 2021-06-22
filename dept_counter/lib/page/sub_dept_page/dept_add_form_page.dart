@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:dept_counter/modules/scheduler.dart';
-// import 'package:provider/provider.dart';
 
 class DeptAddFormPage extends StatefulWidget {
-  const DeptAddFormPage({Key? key}) : super(key: key);
-
   @override
   _DeptAddFormPageState createState() => _DeptAddFormPageState();
 }
@@ -14,8 +10,6 @@ class _DeptAddFormPageState extends State<DeptAddFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final scheduler = Provider.of<Scheduler>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Dept'),
@@ -121,14 +115,28 @@ class _DeptAddFormPageState extends State<DeptAddFormPage> {
                 },
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                // scheduler.update();
-                if (_formKey.currentState!.validate()) {
-                  // Navigator.pop(context);
-                }
-              },
-              child: Text('Confirm'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.redAccent),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/dept-page');
+                  },
+                  child: Text(
+                    'Cancel',
+                    // style: TextStyle(color: Colors.red),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.pushReplacementNamed(context, '/dept-page');
+                    }
+                  },
+                  child: Text('Confirm'),
+                ),
+              ],
             ),
           ],
         ),
