@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dept_counter/page/sub_dept_page/dept_add_form_page.dart';
 import 'package:provider/provider.dart';
 import 'package:dept_counter/modules/scheduler.dart';
 
@@ -16,8 +15,7 @@ class DeptPage extends StatelessWidget {
         floatingActionButton: FloatingActionButton.extended(
           icon: const Icon(Icons.add),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => DeptAddForm()));
+            Navigator.pushNamed(context, '/dept-add-form-page');
           },
           label: const Text('Create'),
         ),

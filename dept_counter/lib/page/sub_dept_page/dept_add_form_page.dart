@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:dept_counter/modules/scheduler.dart';
-import 'package:provider/provider.dart';
+// import 'package:dept_counter/modules/scheduler.dart';
+// import 'package:provider/provider.dart';
 
-class DeptAddForm extends StatefulWidget {
-  const DeptAddForm({Key? key}) : super(key: key);
+class DeptAddFormPage extends StatefulWidget {
+  const DeptAddFormPage({Key? key}) : super(key: key);
 
   @override
-  _DeptAddFormState createState() => _DeptAddFormState();
+  _DeptAddFormPageState createState() => _DeptAddFormPageState();
 }
 
-class _DeptAddFormState extends State<DeptAddForm> {
+class _DeptAddFormPageState extends State<DeptAddFormPage> {
   final _formKey = GlobalKey<FormState>();
 
   @override

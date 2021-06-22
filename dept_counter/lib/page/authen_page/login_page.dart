@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dept_counter/page/home_page.dart';
-import 'package:dept_counter/page/authen_page/register_page.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -28,12 +26,7 @@ class LoginPage extends StatelessWidget {
                 Text("Don't have account?"),
                 SizedBox(width: 10.0),
                 GestureDetector(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RegisterPage(),
-                    ),
-                  ),
+                  onTap: () => Navigator.pushNamed(context, '/register'),
                   child: Text(
                     'Register',
                     style: TextStyle(
@@ -125,12 +118,7 @@ class _LoginFormState extends State<LoginForm> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 print('OK');
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Homepage(),
-                  ),
-                );
+                Navigator.pushReplacementNamed(context, '/home');
               }
             },
             child: Text('Login'),

@@ -1,8 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:dept_counter/page/sub_dept_page/dept_page.dart';
-import 'package:dept_counter/page/sub_summary_page/summary_page.dart';
-import 'package:dept_counter/page/account/account_setting_page.dart';
 
 class Homepage extends StatelessWidget {
   @override
@@ -12,15 +9,17 @@ class Homepage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Home'),
       ),
-      body: Container(
-        padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            DeptCard(),
-            SummaryCard(),
-          ],
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              DeptCard(),
+              SummaryCard(),
+            ],
+          ),
         ),
       ),
       drawer: HomeDrawer(),
@@ -116,12 +115,7 @@ class DeptCard extends StatelessWidget {
             ),
           ),
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DeptPage(),
-              ),
-            );
+            Navigator.pushNamed(context, '/dept-page');
           },
           splashColor:
               Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
@@ -148,12 +142,7 @@ class SummaryCard extends StatelessWidget {
             ),
           ),
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SummaryPage(),
-              ),
-            );
+            Navigator.pushNamed(context, '/summary');
           },
           splashColor:
               Theme.of(context).colorScheme.onSurface.withOpacity(0.12),

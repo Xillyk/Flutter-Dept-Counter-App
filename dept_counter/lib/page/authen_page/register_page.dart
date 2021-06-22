@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dept_counter/page/home_page.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -98,12 +97,7 @@ class _RegisterFormState extends State<RegisterForm> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 print('OK');
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Homepage(),
-                  ),
-                );
+                Navigator.pushReplacementNamed(context, '/register-loading');
               }
             },
             child: Text('Register'),
