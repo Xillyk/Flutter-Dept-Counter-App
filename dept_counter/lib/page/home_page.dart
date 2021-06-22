@@ -65,12 +65,7 @@ class HomeDrawer extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AccountSettingPage(),
-                ),
-              );
+              Navigator.pushNamed(context, '/account');
             },
           ),
           Divider(

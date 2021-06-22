@@ -15,7 +15,7 @@ class DeptPage extends StatelessWidget {
         floatingActionButton: FloatingActionButton.extended(
           icon: const Icon(Icons.add),
           onPressed: () {
-            Navigator.pushNamed(context, '/dept-add-form-page');
+            Navigator.pushReplacementNamed(context, '/dept-add-form-page');
           },
           label: const Text('Create'),
         ),
