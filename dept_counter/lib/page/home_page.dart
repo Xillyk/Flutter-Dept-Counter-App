@@ -2,6 +2,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatelessWidget {
+  final Map<String, String> userData;
+
+  Homepage(this.userData);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,13 +26,14 @@ class Homepage extends StatelessWidget {
           ),
         ),
       ),
-      drawer: HomeDrawer(),
+      drawer: HomeDrawer(userData),
     );
   }
 }
 
 class HomeDrawer extends StatelessWidget {
-  final name = 'Benz';
+  final Map<String, String> userData;
+  HomeDrawer(this.userData);
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +49,12 @@ class HomeDrawer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 CircleAvatar(
-                  backgroundImage: AssetImage('assets/benz.jpg'),
+                  foregroundColor: Colors.amberAccent,
+                  // backgroundImage: AssetImage('assets/benz.jpg'),
                   radius: 40.0,
                 ),
                 Text(
-                  'Hi $name',
+                  'Hi ${userData['name']}',
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,

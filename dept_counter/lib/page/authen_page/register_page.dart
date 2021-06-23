@@ -1,9 +1,7 @@
-import 'package:dept_counter/page/authen_page/register_loading.dart';
+import 'package:dept_counter/page/authen_page/register_add_info_page.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,17 +18,20 @@ class RegisterPage extends StatelessWidget {
 }
 
 class RegisterForm extends StatefulWidget {
-  const RegisterForm({Key? key}) : super(key: key);
-
   @override
   _RegisterFormState createState() => _RegisterFormState();
 }
 
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
-  String username = '';
-  String password = '';
+  // String username = '';
+  // String password = '';
   String confirmPassword = '';
+  Map<String, String> userRegisterData = {
+    'username': '',
+    'password': '',
+    'name': '',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 if (value == null || value.isEmpty) {
                   return 'Please enter Username';
                 }
-                username = value;
+                userRegisterData['username'] = value;
                 return null;
               },
             ),
@@ -73,7 +74,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 if (value == null || value.isEmpty) {
                   return 'Please enter Password';
                 }
-                password = value;
+                userRegisterData['password'] = value;
                 return null;
               },
               obscureText: true,
@@ -103,12 +104,12 @@ class _RegisterFormState extends State<RegisterForm> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                if (password == confirmPassword) {
-                  print('OK');
+                if (userRegisterData['password'] == confirmPassword) {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => RegisterLoading(username, password),
+                      builder: (context) =>
+                          RegisterAddInfoPage(userRegisterData),
                     ),
                   );
                 } else {

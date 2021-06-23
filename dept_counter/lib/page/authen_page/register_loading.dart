@@ -3,11 +3,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class RegisterLoading extends StatefulWidget {
-  final String username;
-  final String password;
+import 'package:dept_counter/page/home_page.dart';
 
-  RegisterLoading(this.username, this.password);
+class RegisterLoading extends StatefulWidget {
+  final Map<String, String> userRegisterData;
+
+  final Map<String, String> userData = {
+    'name': '',
+  };
+
+  RegisterLoading(this.userRegisterData);
 
   @override
   _RegisterLoadingState createState() => _RegisterLoadingState();
@@ -56,13 +61,17 @@ class _RegisterLoadingState extends State<RegisterLoading>
       },
       body: jsonEncode(
         <String, String>{
-          'username': widget.username,
-          'password': widget.password,
+          'username': widget.userRegisterData['username']!,
+          'password': widget.userRegisterData['password']!,
+          'name': widget.userRegisterData['name']!,
         },
       ),
     );
     if (response.body == 'Success') {
-      Navigator.pushReplacementNamed(context, '/home');
+      widget.userData['name'] = widget.userRegisterData['name']!;
+
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => Homepage(widget.userData)));
     } else {
       Navigator.pushReplacementNamed(context, '/register');
     }

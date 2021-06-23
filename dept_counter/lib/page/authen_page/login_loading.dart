@@ -84,36 +84,35 @@ class _LoginLoadingState extends State<LoginLoading>
       ),
     );
     if (response.body == 'Success') {
+      fetchUserData();
       Navigator.pushReplacementNamed(context, '/home');
     } else {
       Navigator.pushReplacementNamed(context, '/login');
     }
   }
 
-  void getData() async {
-    // Response response =
-    //     await get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+  void fetchUserData() async {
     http.Response response =
-        await http.get(Uri.parse('http://10.0.2.2:3000/users'));
-    try {
-      Map data = jsonDecode(response.body);
-      print(data);
-    } catch (err) {
-      print(err);
-    }
-    try {
-      List data = jsonDecode(response.body);
-      print(data);
-    } catch (err) {
-      print(err);
-    }
+        await http.get(Uri.parse('http://10.0.2.2:3000/user'));
+    // try {
+    //   Map data = jsonDecode(response.body);
+    //   print(data);
+    // } catch (err) {
+    //   print(err);
+    // }
+    // try {
+    //   List data = jsonDecode(response.body);
+    //   print(data);
+    // } catch (err) {
+    //   print(err);
+    // }
+    print(response.body);
   }
 
   @override
   void initState() {
     super.initState();
     verifyUser();
-    // getData();
   }
 
   @override

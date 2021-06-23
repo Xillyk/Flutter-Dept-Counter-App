@@ -1,3 +1,4 @@
+import 'package:dept_counter/page/authen_page/register_add_info_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dept_counter/page/loading.dart';
@@ -20,6 +21,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  Map<String, String> userData = {};
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,7 +35,8 @@ class MyApp extends StatelessWidget {
         // '/login-loading': (context) => LoginLoading(),
         '/register': (context) => RegisterPage(),
         // '/register-loading': (context) => RegisterLoading(),
-        '/home': (context) => Homepage(),
+        '/register-add-info': (context) => RegisterAddInfoPage(userData),
+        // '/home': (context) => Homepage(),
         '/dept-page': (context) => DeptPage(),
         '/dept-add-form-page': (context) => DeptAddFormPage(),
         '/summary': (context) => SummaryPage(),
