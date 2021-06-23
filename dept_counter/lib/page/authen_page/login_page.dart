@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dept_counter/page/authen_page/login_loading.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -45,8 +46,6 @@ class LoginPage extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
-
   @override
   _LoginFormState createState() => _LoginFormState();
 }
@@ -54,6 +53,8 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
+  String username = '';
+  String password = '';
 
   // void _toggleHideOrShowPassword() {
   //   setState(() {
@@ -86,6 +87,7 @@ class _LoginFormState extends State<LoginForm> {
                 if (value == null || value.isEmpty) {
                   return 'Please enter Username';
                 }
+                username = value;
                 return null;
               },
             ),
@@ -109,6 +111,7 @@ class _LoginFormState extends State<LoginForm> {
                 if (value == null || value.isEmpty) {
                   return 'Please enter Password';
                 }
+                password = value;
                 return null;
               },
               obscureText: _obscureText,
@@ -117,8 +120,12 @@ class _LoginFormState extends State<LoginForm> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                print('OK');
-                Navigator.pushReplacementNamed(context, '/home');
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginLoading(username, password),
+                  ),
+                );
               }
             },
             child: Text('Login'),

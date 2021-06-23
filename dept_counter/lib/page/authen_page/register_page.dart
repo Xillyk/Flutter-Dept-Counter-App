@@ -1,3 +1,4 @@
+import 'package:dept_counter/page/authen_page/register_loading.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -27,6 +28,9 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
+  String username = '';
+  String password = '';
+  String confirmPassword = '';
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +53,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 if (value == null || value.isEmpty) {
                   return 'Please enter Username';
                 }
+                username = value;
                 return null;
               },
             ),
@@ -68,6 +73,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 if (value == null || value.isEmpty) {
                   return 'Please enter Password';
                 }
+                password = value;
                 return null;
               },
               obscureText: true,
@@ -88,6 +94,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 if (value == null || value.isEmpty) {
                   return 'Please confirm Password';
                 }
+                confirmPassword = value;
                 return null;
               },
               obscureText: true,
@@ -96,8 +103,17 @@ class _RegisterFormState extends State<RegisterForm> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                print('OK');
-                Navigator.pushReplacementNamed(context, '/register-loading');
+                if (password == confirmPassword) {
+                  print('OK');
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RegisterLoading(username, password),
+                    ),
+                  );
+                } else {
+                  print('Not same');
+                }
               }
             },
             child: Text('Register'),
