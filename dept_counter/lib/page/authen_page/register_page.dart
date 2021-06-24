@@ -18,6 +18,12 @@ class RegisterPage extends StatelessWidget {
 }
 
 class RegisterForm extends StatefulWidget {
+  final Map<String, String> userRegisterData = {
+    'username': '',
+    'password': '',
+    'name': '',
+  };
+
   @override
   _RegisterFormState createState() => _RegisterFormState();
 }
@@ -28,12 +34,6 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _confirmPassword = TextEditingController();
 
   String confirmPassword = '';
-
-  Map<String, String> userRegisterData = {
-    'username': '',
-    'password': '',
-    'name': '',
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 if (value == null || value.isEmpty) {
                   return 'Please enter Username';
                 }
-                userRegisterData['username'] = value;
+                widget.userRegisterData['username'] = value;
                 return null;
               },
             ),
@@ -80,7 +80,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 // else if (!samePassword) {
                 //   return 'Password not match';
                 // }
-                userRegisterData['password'] = value;
+                widget.userRegisterData['password'] = value;
                 return null;
               },
               obscureText: true,
@@ -116,7 +116,8 @@ class _RegisterFormState extends State<RegisterForm> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => RegisterAddInfoPage(userRegisterData),
+                    builder: (context) =>
+                        RegisterAddInfoPage(widget.userRegisterData),
                   ),
                 );
                 // Navigator.pushReplacementNamed(context, '/register-add-info',);

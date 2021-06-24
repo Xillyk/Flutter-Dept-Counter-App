@@ -46,6 +46,11 @@ class LoginPage extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
+  final Map<String, String> userLoginData = {
+    'username': '',
+    'password': '',
+  };
+
   @override
   _LoginFormState createState() => _LoginFormState();
 }
@@ -53,8 +58,6 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
-  String username = '';
-  String password = '';
 
   // void _toggleHideOrShowPassword() {
   //   setState(() {
@@ -87,7 +90,7 @@ class _LoginFormState extends State<LoginForm> {
                 if (value == null || value.isEmpty) {
                   return 'Please enter Username';
                 }
-                username = value;
+                widget.userLoginData['username'] = value;
                 return null;
               },
             ),
@@ -111,7 +114,7 @@ class _LoginFormState extends State<LoginForm> {
                 if (value == null || value.isEmpty) {
                   return 'Please enter Password';
                 }
-                password = value;
+                widget.userLoginData['password'] = value;
                 return null;
               },
               obscureText: _obscureText,
@@ -123,7 +126,7 @@ class _LoginFormState extends State<LoginForm> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => LoginLoading(username, password),
+                    builder: (context) => LoginLoading(widget.userLoginData),
                   ),
                 );
               }

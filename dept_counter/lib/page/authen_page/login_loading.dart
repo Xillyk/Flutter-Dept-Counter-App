@@ -1,16 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class LoginLoading extends StatefulWidget {
-  // final String username, password;
-  // LoginLoading(this.username, this.password) {
-  //   print('$username- $password');
-  // }
-  final String username;
-  final String password;
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:dept_counter/page/home_page.dart';
 
-  LoginLoading(this.username, this.password);
+class LoginLoading extends StatefulWidget {
+  final Map<String, String> userLoginData;
+  final Map<String, String> userData = {
+    'name': '',
+  };
+
+  LoginLoading(this.userLoginData);
 
   @override
   _LoginLoadingState createState() => _LoginLoadingState();
@@ -78,35 +78,48 @@ class _LoginLoadingState extends State<LoginLoading>
       },
       body: jsonEncode(
         <String, String>{
-          'username': widget.username,
-          'password': widget.password,
+          'username': widget.userLoginData['username']!,
+          'password': widget.userLoginData['password']!,
         },
       ),
     );
     if (response.body == 'Success') {
       fetchUserData();
-      Navigator.pushReplacementNamed(context, '/home');
+      // Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => Homepage(widget.userData)));
     } else {
       Navigator.pushReplacementNamed(context, '/login');
     }
   }
 
   void fetchUserData() async {
-    http.Response response =
-        await http.get(Uri.parse('http://10.0.2.2:3000/user'));
-    // try {
-    //   Map data = jsonDecode(response.body);
-    //   print(data);
-    // } catch (err) {
-    //   print(err);
-    // }
-    // try {
-    //   List data = jsonDecode(response.body);
-    //   print(data);
-    // } catch (err) {
-    //   print(err);
-    // }
-    print(response.body);
+    http.Response response = await http.post(
+      Uri.parse('http://10.0.2.2:3000/user'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(
+        <String, String>{
+          'username': widget.userLoginData['username']!,
+        },
+      ),
+    );
+
+    dynamic data;
+    try {
+      data = jsonDecode(response.body);
+      print(data);
+    } catch (err) {
+      print(err);
+    }
+    try {
+      data = jsonDecode(response.body);
+      print(data[0]['name']);
+      widget.userData['name'] = data[0]['name'];
+    } catch (err) {
+      print(err);
+    }
   }
 
   @override
