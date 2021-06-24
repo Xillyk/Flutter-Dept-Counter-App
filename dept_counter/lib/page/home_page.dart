@@ -20,8 +20,8 @@ class Homepage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              DeptCard(),
-              SummaryCard(),
+              createDeptCard(context),
+              createSummaryCard(context),
             ],
           ),
         ),
@@ -99,56 +99,48 @@ class HomeDrawer extends StatelessWidget {
   }
 }
 
-class DeptCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Card(
-        child: InkWell(
-          child: Center(
-            child: Text(
-              'Dept Reminder',
-              style: TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
-              ),
+Widget createDeptCard(context) {
+  return Expanded(
+    flex: 1,
+    child: Card(
+      child: InkWell(
+        child: Center(
+          child: Text(
+            'Dept Reminder',
+            style: TextStyle(
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          onTap: () {
-            Navigator.pushNamed(context, '/dept-page');
-          },
-          splashColor:
-              Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
         ),
+        onTap: () {
+          Navigator.pushNamed(context, '/dept-page');
+        },
+        splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
       ),
-    );
-  }
+    ),
+  );
 }
 
-class SummaryCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Card(
-        child: InkWell(
-          child: Center(
-            child: Text(
-              'Summary',
-              style: TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
-              ),
+Widget createSummaryCard(context) {
+  return Expanded(
+    flex: 1,
+    child: Card(
+      child: InkWell(
+        child: Center(
+          child: Text(
+            'Summary',
+            style: TextStyle(
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          onTap: () {
-            Navigator.pushNamed(context, '/summary');
-          },
-          splashColor:
-              Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
         ),
+        onTap: () {
+          Navigator.pushNamed(context, '/summary');
+        },
+        splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
       ),
-    );
-  }
+    ),
+  );
 }

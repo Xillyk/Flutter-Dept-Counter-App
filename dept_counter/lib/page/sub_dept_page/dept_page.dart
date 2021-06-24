@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:dept_counter/modules/scheduler.dart';
 
 class DeptPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => Scheduler(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Dept Page'),
-        ),
-        body: DeptItemCardList(),
-        floatingActionButton: FloatingActionButton.extended(
-          icon: const Icon(Icons.add),
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, '/dept-add-form-page');
-          },
-          label: const Text('Create'),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Dept Page'),
+      ),
+      body: DeptItemCardList(),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: const Icon(Icons.add),
+        onPressed: () {
+          Navigator.pushReplacementNamed(context, '/dept-add-form-page');
+        },
+        label: const Text('Create'),
       ),
     );
   }
@@ -32,7 +29,7 @@ class DeptItemCardList extends StatefulWidget {
 }
 
 class _DeptItemCardListState extends State<DeptItemCardList> {
-  var name = 'normal';
+  String name = 'benz';
 
   void _updateListView() {
     setState(() {
@@ -65,15 +62,15 @@ class _DeptItemCardListState extends State<DeptItemCardList> {
 
   @override
   Widget build(BuildContext context) {
-    // return _buildDeptListView();
-    return Consumer<Scheduler>(
-      builder: (context, scheduler, _) => Container(
-        child: Text('555'),
-      ),
-    );
-
-    // return Container(
-    //   child: Text('$name'),
+    // // return _buildDeptListView();
+    // return Consumer<Scheduler>(
+    //   builder: (context, scheduler, _) => Container(
+    //     child: Text('555'),
+    //   ),
     // );
+
+    return Container(
+      child: Text('$name'),
+    );
   }
 }

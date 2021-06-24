@@ -24,9 +24,11 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
-  // String username = '';
-  // String password = '';
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirmPassword = TextEditingController();
+
   String confirmPassword = '';
+
   Map<String, String> userRegisterData = {
     'username': '',
     'password': '',
@@ -70,10 +72,14 @@ class _RegisterFormState extends State<RegisterForm> {
                   borderRadius: BorderRadius.circular(5.0),
                 ),
               ),
+              controller: _password,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter Password';
                 }
+                // else if (!samePassword) {
+                //   return 'Password not match';
+                // }
                 userRegisterData['password'] = value;
                 return null;
               },
@@ -91,9 +97,12 @@ class _RegisterFormState extends State<RegisterForm> {
                   borderRadius: BorderRadius.circular(5.0),
                 ),
               ),
+              controller: _confirmPassword,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please confirm Password';
+                } else if (value != _password.text) {
+                  return 'Password not match';
                 }
                 confirmPassword = value;
                 return null;
@@ -104,20 +113,16 @@ class _RegisterFormState extends State<RegisterForm> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                if (userRegisterData['password'] == confirmPassword) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          RegisterAddInfoPage(userRegisterData),
-                    ),
-                  );
-                } else {
-                  print('Not same');
-                }
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RegisterAddInfoPage(userRegisterData),
+                  ),
+                );
+                // Navigator.pushReplacementNamed(context, '/register-add-info',);
               }
             },
-            child: Text('Register'),
+            child: Text('Next'),
           ),
         ],
       ),

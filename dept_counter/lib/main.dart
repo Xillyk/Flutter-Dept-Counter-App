@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => RegisterPage(),
         // '/register-loading': (context) => RegisterLoading(),
         '/register-add-info': (context) => RegisterAddInfoPage(userData),
-        // '/home': (context) => Homepage(),
+        '/home': (context) => Homepage(userData),
         '/dept-page': (context) => DeptPage(),
         '/dept-add-form-page': (context) => DeptAddFormPage(),
         '/summary': (context) => SummaryPage(),

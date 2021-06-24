@@ -58,7 +58,7 @@ class _RegisterAddInfoPageState extends State<RegisterAddInfoPage> {
                     print('Name invalid');
                   }
                 },
-                child: Text('Confirm'),
+                child: Text('Register'),
               ),
             ],
           ),
