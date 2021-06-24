@@ -12,7 +12,7 @@ import 'package:dept_counter/page/authen_page/register_page.dart';
 import 'package:dept_counter/page/sub_dept_page/dept_page.dart';
 import 'package:dept_counter/page/sub_dept_page/dept_add_topic_info_page.dart';
 import 'package:dept_counter/page/sub_dept_page/dept_add_time_info_page.dart';
-
+import 'package:dept_counter/page/sub_dept_page/dept_create_and_modify_dept_list_page.dart';
 import 'package:dept_counter/page/sub_summary_page/summary_page.dart';
 
 import 'package:dept_counter/page/account/account_setting_page.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/dept-add-topic-info-page',
+      initialRoute: '/dept-create-and-modify-dept-list-page',
       routes: {
         '/': (context) => Loading(),
         '/login': (context) => LoginPage(),
@@ -41,6 +41,8 @@ class MyApp extends StatelessWidget {
         '/dept-page': (context) => DeptPage(),
         '/dept-add-topic-info-page': (context) => DeptAddTopicInfoPage(),
         '/dept-add-time-info-page': (context) => DeptAddTimeInfoPage(),
+        '/dept-create-and-modify-dept-list-page': (context) =>
+            DeptCreateAndModifyDeptListPage(),
 
         '/summary': (context) => SummaryPage(),
         '/account': (context) => AccountSettingPage(),
