@@ -6,9 +6,6 @@ import 'package:dept_counter/page/home_page.dart';
 
 class LoginLoading extends StatefulWidget {
   final Map<String, String> userLoginData;
-  final Map<String, String> userData = {
-    'name': '',
-  };
 
   LoginLoading(this.userLoginData);
 
@@ -52,23 +49,7 @@ class _LoginLoadingState extends State<LoginLoading>
 //     );
 //   }
 
-  // void register() async {
-  //   String username = 'aa';
-  //   String password = 'bb';
-
-  //   http.Response response = await http.post(
-  //     Uri.parse('http://10.0.2.2:3000/register'),
-  //     headers: <String, String>{
-  //       'Content-Type': 'application/json; charset=UTF-8',
-  //     },
-  //     body: jsonEncode(
-  //       <String, String>{
-  //         'username': username,
-  //         'password': password,
-  //       },
-  //     ),
-  //   );
-  // }
+  Map<String, dynamic> userData = {};
 
   void verifyUser() async {
     http.Response response = await http.post(
@@ -86,8 +67,8 @@ class _LoginLoadingState extends State<LoginLoading>
     if (response.body == 'Success') {
       fetchUserData();
       // Navigator.pushReplacementNamed(context, '/home');
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => Homepage(widget.userData)));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Homepage(userData)));
     } else {
       Navigator.pushReplacementNamed(context, '/login');
     }
@@ -109,17 +90,27 @@ class _LoginLoadingState extends State<LoginLoading>
     dynamic data;
     try {
       data = jsonDecode(response.body);
-      print(data);
+      // print(data);
     } catch (err) {
       print(err);
     }
-    try {
-      data = jsonDecode(response.body);
-      print(data[0]['name']);
-      widget.userData['name'] = data[0]['name'];
-    } catch (err) {
-      print(err);
+
+    if (response.statusCode == 200) {
+      userData = data[0];
+      print(userData);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Homepage(userData)));
+    } else {
+      Navigator.pushReplacementNamed(context, '/login');
     }
+
+    // try {
+    //   data = jsonDecode(response.body);
+    //   print(data[0]['name']);
+    //   widget.userData['name'] = data[0]['name'];
+    // } catch (err) {
+    //   print(err);
+    // }
   }
 
   @override

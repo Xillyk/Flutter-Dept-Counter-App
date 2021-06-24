@@ -1,8 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
+import 'package:dept_counter/page/sub_dept_page/dept_page.dart';
+
 class Homepage extends StatelessWidget {
-  final Map<String, String> userData;
+  final Map<String, dynamic> userData;
 
   Homepage(this.userData);
 
@@ -20,7 +22,7 @@ class Homepage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              createDeptCard(context),
+              createDeptCard(context, userData),
               createSummaryCard(context),
             ],
           ),
@@ -32,7 +34,7 @@ class Homepage extends StatelessWidget {
 }
 
 class HomeDrawer extends StatelessWidget {
-  final Map<String, String> userData;
+  final Map<String, dynamic> userData;
   HomeDrawer(this.userData);
 
   @override
@@ -54,7 +56,7 @@ class HomeDrawer extends StatelessWidget {
                   radius: 40.0,
                 ),
                 Text(
-                  'Hi ${userData['name']}',
+                  'Hi ${userData['Name']}',
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
@@ -99,7 +101,7 @@ class HomeDrawer extends StatelessWidget {
   }
 }
 
-Widget createDeptCard(context) {
+Widget createDeptCard(context, userData) {
   return Expanded(
     flex: 1,
     child: Card(
@@ -114,7 +116,9 @@ Widget createDeptCard(context) {
           ),
         ),
         onTap: () {
-          Navigator.pushNamed(context, '/dept-page');
+          // Navigator.pushNamed(context, '/dept-page');
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => DeptPage(userData)));
         },
         splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
       ),

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 // import 'package:dept_counter/modules/scheduler.dart';
 
 class DeptPage extends StatelessWidget {
+  final Map<String, dynamic> userData;
+  DeptPage(this.userData);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -22,14 +22,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  Map<String, String> userData = {};
+  Map<String, dynamic> userData = {};
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/dept-add-topic-info-page',
+      initialRoute: '/login',
       routes: {
         '/': (context) => Loading(),
         '/login': (context) => LoginPage(),
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         // '/register-loading': (context) => RegisterLoading(),
         '/register-add-info': (context) => RegisterAddInfoPage(userData),
         '/home': (context) => Homepage(userData),
-        '/dept-page': (context) => DeptPage(),
+        '/dept-page': (context) => DeptPage(userData),
         '/dept-add-topic-info-page': (context) => DeptAddTopicInfoPage(),
         '/dept-add-time-info-page': (context) => DeptAddTimeInfoPage(),
         '/dept-create-and-modify-dept-list-page': (context) =>

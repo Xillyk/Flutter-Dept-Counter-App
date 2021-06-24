@@ -18,6 +18,23 @@ class _DeptCreateAndModifyDeptListPageState
           title: Text('Dept List'),
           automaticallyImplyLeading: false,
         ),
+        body: DataTable(
+          columns: <DataColumn>[
+            DataColumn(
+              label: Text('*'),
+            ),
+            DataColumn(
+              label: Text('Date'),
+            ),
+            DataColumn(
+              label: Text('Dept Amount'),
+            ),
+            // DataColumn(
+            //   label: Text('Payment'),
+            // )
+          ],
+          rows: [],
+        ),
 
         // body:
       ),

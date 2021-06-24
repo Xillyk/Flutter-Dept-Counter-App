@@ -2,7 +2,7 @@ import 'package:dept_counter/page/authen_page/register_loading.dart';
 import 'package:flutter/material.dart';
 
 class RegisterAddInfoPage extends StatefulWidget {
-  final Map<String, String> userRegisterData;
+  final Map<String, dynamic> userRegisterData;
 
   RegisterAddInfoPage(this.userRegisterData);
 
