@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/dept-create-and-modify-dept-list-page',
+      initialRoute: '/dept-add-topic-info-page',
       routes: {
         '/': (context) => Loading(),
         '/login': (context) => LoginPage(),

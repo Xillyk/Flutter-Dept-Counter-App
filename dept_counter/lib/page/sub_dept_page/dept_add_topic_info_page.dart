@@ -63,6 +63,7 @@ class _DeptAddTopicInfoPageState extends State<DeptAddTopicInfoPage> {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     fillColor: Colors.white70,
                     filled: true,

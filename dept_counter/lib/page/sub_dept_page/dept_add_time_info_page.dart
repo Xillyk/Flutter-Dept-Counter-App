@@ -25,17 +25,18 @@ class _DeptAddTimeInfoPageState extends State<DeptAddTimeInfoPage> {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     fillColor: Colors.white70,
                     filled: true,
-                    labelText: 'Month',
+                    labelText: 'Amount month payment *',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Month required!';
+                      return 'Amount month payment required!';
                     }
                     return null;
                   },
@@ -43,6 +44,7 @@ class _DeptAddTimeInfoPageState extends State<DeptAddTimeInfoPage> {
               ),
               StartDatePickerWidget(),
               EndDatePickerWidget(),
+              SizedBox(height: 20.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -59,6 +61,8 @@ class _DeptAddTimeInfoPageState extends State<DeptAddTimeInfoPage> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
+                        Navigator.pushNamed(
+                            context, '/dept-create-and-modify-dept-list-page');
                         // Navigator.pushReplacement(
                         //   context,
                         //   MaterialPageRoute(
@@ -150,6 +154,7 @@ class _StartDatePickerWidgetState extends State<StartDatePickerWidget>
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         OutlinedButton(
           onPressed: () {
@@ -235,6 +240,7 @@ class _EndDatePickerWidgetState extends State<EndDatePickerWidget>
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         OutlinedButton(
           onPressed: () {

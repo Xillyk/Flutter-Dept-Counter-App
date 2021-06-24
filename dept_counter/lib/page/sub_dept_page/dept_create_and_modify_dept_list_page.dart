@@ -16,7 +16,9 @@ class _DeptCreateAndModifyDeptListPageState
       child: Scaffold(
         appBar: AppBar(
           title: Text('Dept List'),
+          automaticallyImplyLeading: false,
         ),
+
         // body:
       ),
     );
