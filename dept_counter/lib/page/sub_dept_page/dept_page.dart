@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
-import 'package:dept_counter/modules/scheduler.dart';
+// import 'package:dept_counter/modules/scheduler.dart';
 
 class DeptPage extends StatelessWidget {
   @override
@@ -13,7 +13,7 @@ class DeptPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
         onPressed: () {
-          Navigator.pushReplacementNamed(context, '/dept-add-form-page');
+          Navigator.pushReplacementNamed(context, '/dept-add-topic-info-page');
         },
         label: const Text('Create'),
       ),
