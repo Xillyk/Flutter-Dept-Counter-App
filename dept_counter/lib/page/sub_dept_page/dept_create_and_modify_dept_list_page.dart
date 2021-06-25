@@ -58,7 +58,8 @@ class _DeptCreateAndModifyDeptListPageState
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Dept List | $totalDept | $sumDeptInList'),
+          title: Text(
+              'Dept List | ${totalDept.toStringAsFixed(2)} | ${sumDeptInList.toStringAsFixed(2)}'),
           automaticallyImplyLeading: false,
         ),
         floatingActionButton: FloatingActionButton.extended(
@@ -114,7 +115,7 @@ class _DeptCreateAndModifyDeptListPageState
                   DataCell(Text('${index + 1}')),
                   DataCell(
                     TextFormField(
-                      initialValue: '$amountPerMonth',
+                      initialValue: '${amountPerMonth.toStringAsFixed(2)}',
                       keyboardType: TextInputType.number,
                       onFieldSubmitted: (val) {
                         print('onSubmited $val at month-${index + 1}');

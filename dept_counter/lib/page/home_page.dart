@@ -108,7 +108,7 @@ class HomeDrawer extends StatelessWidget {
                   radius: 40.0,
                 ),
                 Text(
-                  'Hi ${userData['Name']}',
+                  'Hi ${userData['name']}',
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
