@@ -1,79 +1,101 @@
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:dept_counter/modules/scheduler.dart';
+import 'package:dept_counter/page/sub_dept_page/dept_information_page.dart';
+import 'package:dept_counter/page/sub_dept_page/dept_add_topic_info_page.dart';
 
-class DeptPage extends StatelessWidget {
+class DeptPage extends StatefulWidget {
   final Map<String, dynamic> userData;
   DeptPage(this.userData);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Dept Page'),
-      ),
-      body: DeptItemCardList(),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: const Icon(Icons.add),
-        onPressed: () {
-          Navigator.pushReplacementNamed(context, '/dept-add-topic-info-page');
-        },
-        label: const Text('Create'),
-      ),
-    );
-  }
+  _DeptPageState createState() => _DeptPageState();
 }
 
-class DeptItemCardList extends StatefulWidget {
-  const DeptItemCardList({Key? key}) : super(key: key);
-
-  @override
-  _DeptItemCardListState createState() => _DeptItemCardListState();
-}
-
-class _DeptItemCardListState extends State<DeptItemCardList> {
-  String name = 'benz';
-
+class _DeptPageState extends State<DeptPage> {
   void _updateListView() {
-    setState(() {
-      name = 'updated!';
-    });
+    setState(() {});
   }
 
-  Widget _buildDeptListView() {
-    return ListView.builder(
-      padding: EdgeInsets.all(10.0),
-      itemBuilder: (context, index) {
-        if (index.isOdd) return const Divider();
+  Widget _buildDeptListView(userData) {
+    // print('userdata = $userData |  ${userData['deptTopicList']}');
+    // if (userData['deptTopicList'].length == null) {
+    //   print('IT NULL');
+    //   return Container(
+    //     child: Text('No dept list'),
+    //   );
+    // } else {
+    if (true) {
+      return ListView.builder(
+        padding: EdgeInsets.all(10.0),
+        itemCount: userData['deptTopicList'].length,
+        itemBuilder: (context, i) {
+          // if (i.isOdd)
+          //   // return const Divider();
+          //   return SizedBox(height: 20);
+          // else {
+          //   return _buildDeptCard(userData['deptTopicList'][i]);
+          // }
+          // final index = i ~/ 2;
 
-        return _buildDeptCard();
+          return _buildDeptCard(userData['deptTopicList'][i]);
+        },
+      );
+    }
+  }
+
+  Widget _buildDeptCard(userData) {
+    // return ListTile(
+    //   title: Text('${data['deptNumber']}'),
+    // );
+    return InkWell(
+      child: Card(
+        child: Text('${userData['deptNumber']}'),
+      ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DeptInformationPage(userData),
+          ),
+        );
       },
     );
   }
 
-  Widget _buildDeptCard() {
-    return Card(
-      child: InkWell(
-        onTap: () {
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => DeptPage()));
-        },
-        splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-      ),
-    );
-  }
-
+//      Expanded(
+  //   child: Card(
+  //     child: InkWell(
+  //       onTap: () {
+  //         // Navigator.push(
+  //         //     context, MaterialPageRoute(builder: (context) => DeptPage()));
+  //       },
+  //       splashColor:
+  //           Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+  //     ),
+  //   ),
+  // ),
   @override
   Widget build(BuildContext context) {
-    // // return _buildDeptListView();
-    // return Consumer<Scheduler>(
-    //   builder: (context, scheduler, _) => Container(
-    //     child: Text('555'),
-    //   ),
-    // );
-
-    return Container(
-      child: Text('$name'),
+    print('deptpage data = ${widget.userData}');
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Dept Page'),
+          centerTitle: true,
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          icon: const Icon(Icons.add),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DeptAddTopicInfoPage(widget.userData),
+              ),
+            );
+          },
+          label: const Text('Create'),
+        ),
+        body: _buildDeptListView(widget.userData),
+      ),
     );
   }
 }

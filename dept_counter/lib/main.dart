@@ -39,10 +39,11 @@ class MyApp extends StatelessWidget {
         '/register-add-info': (context) => RegisterAddInfoPage(userData),
         '/home': (context) => Homepage(userData),
         '/dept-page': (context) => DeptPage(userData),
-        '/dept-add-topic-info-page': (context) => DeptAddTopicInfoPage(),
-        '/dept-add-time-info-page': (context) => DeptAddTimeInfoPage(),
-        '/dept-create-and-modify-dept-list-page': (context) =>
-            DeptCreateAndModifyDeptListPage(),
+        '/dept-add-topic-info-page': (context) =>
+            DeptAddTopicInfoPage(userData),
+        // '/dept-add-time-info-page': (context) => DeptAddTimeInfoPage(userData),
+        // '/dept-create-and-modify-dept-list-page': (context) =>
+        //     DeptCreateAndModifyDeptListPage(),
 
         '/summary': (context) => SummaryPage(),
         '/account': (context) => AccountSettingPage(),

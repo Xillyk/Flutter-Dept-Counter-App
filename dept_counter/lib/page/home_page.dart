@@ -10,25 +10,77 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.amber,
-      appBar: AppBar(
-        title: Text('Home'),
-      ),
-      body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              createDeptCard(context, userData),
-              createSummaryCard(context),
-            ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.amber,
+        appBar: AppBar(
+          title: Text('Home'),
+        ),
+        body: SafeArea(
+          child: Container(
+            padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                createDeptCard(context, userData),
+                createSummaryCard(context),
+              ],
+            ),
           ),
         ),
+        drawer: HomeDrawer(userData),
       ),
-      drawer: HomeDrawer(userData),
+    );
+  }
+
+  Widget createDeptCard(context, userData) {
+    return Expanded(
+      flex: 1,
+      child: Card(
+        child: InkWell(
+          child: Center(
+            child: Text(
+              'Dept Reminder',
+              style: TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onTap: () {
+            // Navigator.pushNamed(context, '/dept-page');
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => DeptPage(userData)));
+          },
+          splashColor:
+              Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+        ),
+      ),
+    );
+  }
+
+  Widget createSummaryCard(context) {
+    return Expanded(
+      flex: 1,
+      child: Card(
+        child: InkWell(
+          child: Center(
+            child: Text(
+              'Summary',
+              style: TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          onTap: () {
+            Navigator.pushNamed(context, '/summary');
+          },
+          splashColor:
+              Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
+        ),
+      ),
     );
   }
 }
@@ -99,52 +151,4 @@ class HomeDrawer extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget createDeptCard(context, userData) {
-  return Expanded(
-    flex: 1,
-    child: Card(
-      child: InkWell(
-        child: Center(
-          child: Text(
-            'Dept Reminder',
-            style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        onTap: () {
-          // Navigator.pushNamed(context, '/dept-page');
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => DeptPage(userData)));
-        },
-        splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-      ),
-    ),
-  );
-}
-
-Widget createSummaryCard(context) {
-  return Expanded(
-    flex: 1,
-    child: Card(
-      child: InkWell(
-        child: Center(
-          child: Text(
-            'Summary',
-            style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        onTap: () {
-          Navigator.pushNamed(context, '/summary');
-        },
-        splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-      ),
-    ),
-  );
 }

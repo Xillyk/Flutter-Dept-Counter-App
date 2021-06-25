@@ -49,7 +49,11 @@ class _LoginLoadingState extends State<LoginLoading>
 //     );
 //   }
 
-  Map<String, dynamic> userData = {};
+  Map<String, dynamic> userData = {
+    'username': '',
+    'name': '',
+    'deptTopicList': []
+  };
 
   void verifyUser() async {
     http.Response response = await http.post(
@@ -64,17 +68,17 @@ class _LoginLoadingState extends State<LoginLoading>
         },
       ),
     );
-    if (response.body == 'Success') {
-      fetchUserData();
-      // Navigator.pushReplacementNamed(context, '/home');
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Homepage(userData)));
-    } else {
-      Navigator.pushReplacementNamed(context, '/login');
+    if (response.statusCode == 200) {
+      if (await fetchUserData()) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => Homepage(userData)));
+      } else {
+        Navigator.pushReplacementNamed(context, '/login');
+      }
     }
   }
 
-  void fetchUserData() async {
+  Future<bool> fetchUserData() async {
     http.Response response = await http.post(
       Uri.parse('http://10.0.2.2:3000/user'),
       headers: <String, String>{
@@ -96,21 +100,15 @@ class _LoginLoadingState extends State<LoginLoading>
     }
 
     if (response.statusCode == 200) {
-      userData = data[0];
-      print(userData);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Homepage(userData)));
-    } else {
-      Navigator.pushReplacementNamed(context, '/login');
-    }
+      userData['username'] = widget.userLoginData['username'];
+      userData['name'] = data[0]['Name'];
+      userData['deptTopicList'] = data[0]['DeptTopicList'];
 
-    // try {
-    //   data = jsonDecode(response.body);
-    //   print(data[0]['name']);
-    //   widget.userData['name'] = data[0]['name'];
-    // } catch (err) {
-    //   print(err);
-    // }
+      print('loading => $userData');
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override

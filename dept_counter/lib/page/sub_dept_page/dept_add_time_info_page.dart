@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:dept_counter/modules/datePickerWidget.dart';
+import 'package:dept_counter/page/sub_dept_page/dept_create_and_modify_dept_list_page.dart';
 
 class DeptAddTimeInfoPage extends StatefulWidget {
-  // const DeptSelectPage({Key? key}) : super(key: key);
+  final Map<String, dynamic> userData;
+  final Map<String, dynamic> newData;
+
+  DeptAddTimeInfoPage(this.userData, this.newData);
 
   @override
   _DeptAddTimeInfoPageState createState() => _DeptAddTimeInfoPageState();
@@ -9,6 +14,22 @@ class DeptAddTimeInfoPage extends StatefulWidget {
 
 class _DeptAddTimeInfoPageState extends State<DeptAddTimeInfoPage> {
   final _formKey = GlobalKey<FormState>();
+
+  DatePickerWidget startDatePickerWidget =
+      DatePickerWidget(buttonName: 'Start Date');
+  DatePickerWidget endDatePickerWidget =
+      DatePickerWidget(buttonName: 'End Date');
+
+  bool isDateSelected() {
+    DateTime? startDate, endDate;
+    startDate = startDatePickerWidget.getSelectedDate();
+    endDate = endDatePickerWidget.getSelectedDate();
+    print('st = $startDate | end = $endDate');
+    if (startDate != null && endDate != null) {
+      return true;
+    } else
+      return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +59,16 @@ class _DeptAddTimeInfoPageState extends State<DeptAddTimeInfoPage> {
                     if (value == null || value.isEmpty) {
                       return 'Amount month payment required!';
                     }
+                    widget.newData['deptInformation']['deptTotalMonthPayment'] =
+                        value;
                     return null;
                   },
                 ),
               ),
-              StartDatePickerWidget(),
-              EndDatePickerWidget(),
+              // StartDatePickerWidget(),
+              // EndDatePickerWidget(),
+              startDatePickerWidget,
+              endDatePickerWidget,
               SizedBox(height: 20.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -60,15 +85,31 @@ class _DeptAddTimeInfoPageState extends State<DeptAddTimeInfoPage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        Navigator.pushNamed(
-                            context, '/dept-create-and-modify-dept-list-page');
-                        // Navigator.pushReplacement(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => DeptAddTimeInfoPage(),
-                        //   ),
-                        // );
+                      if (isDateSelected()) {
+                        if (_formKey.currentState!.validate()) {
+                          print('newdata = ${widget.newData}');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DeptCreateAndModifyDeptListPage(
+                                      widget.userData, widget.newData),
+                            ),
+                          );
+                        }
+                      } else {
+                        final snackBar = SnackBar(
+                          content: Text(
+                            'Please select Start and End Date!',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.0,
+                              color: Colors.red,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
                     },
                     child: Text('Next'),
@@ -79,178 +120,6 @@ class _DeptAddTimeInfoPageState extends State<DeptAddTimeInfoPage> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class StartDatePickerWidget extends StatefulWidget {
-  const StartDatePickerWidget({Key? key, this.restorationId}) : super(key: key);
-
-  final String? restorationId;
-
-  @override
-  _StartDatePickerWidgetState createState() => _StartDatePickerWidgetState();
-}
-
-/// This is the private State class that goes with MyStatefulWidget.
-/// RestorationProperty objects can be used because of RestorationMixin.
-class _StartDatePickerWidgetState extends State<StartDatePickerWidget>
-    with RestorationMixin {
-  // In this example, the restoration ID for the mixin is passed in through
-  // the [StatefulWidget]'s constructor.
-  @override
-  String? get restorationId => widget.restorationId;
-
-  final RestorableDateTime _selectedDate =
-      RestorableDateTime(DateTime(2021, 7, 25));
-  late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
-      RestorableRouteFuture<DateTime?>(
-    onComplete: _selectDate,
-    onPresent: (NavigatorState navigator, Object? arguments) {
-      return navigator.restorablePush(
-        _datePickerRoute,
-        arguments: _selectedDate.value.millisecondsSinceEpoch,
-      );
-    },
-  );
-
-  static Route<DateTime> _datePickerRoute(
-    BuildContext context,
-    Object? arguments,
-  ) {
-    return DialogRoute<DateTime>(
-      context: context,
-      builder: (BuildContext context) {
-        return DatePickerDialog(
-          restorationId: 'date_picker_dialog',
-          initialEntryMode: DatePickerEntryMode.calendarOnly,
-          initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
-          firstDate: DateTime(2021, 1, 1),
-          lastDate: DateTime(2022, 1, 1),
-        );
-      },
-    );
-  }
-
-  @override
-  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-    registerForRestoration(_selectedDate, 'selected_date');
-    registerForRestoration(
-        _restorableDatePickerRouteFuture, 'date_picker_route_future');
-  }
-
-  void _selectDate(DateTime? newSelectedDate) {
-    if (newSelectedDate != null) {
-      setState(() {
-        _selectedDate.value = newSelectedDate;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              'Start Date: ${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}'),
-        ));
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        OutlinedButton(
-          onPressed: () {
-            _restorableDatePickerRouteFuture.present();
-          },
-          child: const Text('Start Date'),
-        ),
-        Text(
-            '${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}'),
-      ],
-    );
-  }
-}
-
-class EndDatePickerWidget extends StatefulWidget {
-  const EndDatePickerWidget({Key? key, this.restorationId}) : super(key: key);
-
-  final String? restorationId;
-
-  @override
-  _EndDatePickerWidgetState createState() => _EndDatePickerWidgetState();
-}
-
-/// This is the private State class that goes with MyStatefulWidget.
-/// RestorationProperty objects can be used because of RestorationMixin.
-class _EndDatePickerWidgetState extends State<EndDatePickerWidget>
-    with RestorationMixin {
-  // In this example, the restoration ID for the mixin is passed in through
-  // the [StatefulWidget]'s constructor.
-  @override
-  String? get restorationId => widget.restorationId;
-
-  final RestorableDateTime _selectedDate =
-      RestorableDateTime(DateTime(2021, 7, 24));
-  late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
-      RestorableRouteFuture<DateTime?>(
-    onComplete: _selectDate,
-    onPresent: (NavigatorState navigator, Object? arguments) {
-      return navigator.restorablePush(
-        _datePickerRoute,
-        arguments: _selectedDate.value.millisecondsSinceEpoch,
-      );
-    },
-  );
-
-  static Route<DateTime> _datePickerRoute(
-    BuildContext context,
-    Object? arguments,
-  ) {
-    return DialogRoute<DateTime>(
-      context: context,
-      builder: (BuildContext context) {
-        return DatePickerDialog(
-          restorationId: 'date_picker_dialog',
-          initialEntryMode: DatePickerEntryMode.calendarOnly,
-          initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
-          firstDate: DateTime(2021, 1, 1),
-          lastDate: DateTime(2022, 1, 1),
-        );
-      },
-    );
-  }
-
-  @override
-  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-    registerForRestoration(_selectedDate, 'selected_date');
-    registerForRestoration(
-        _restorableDatePickerRouteFuture, 'date_picker_route_future');
-  }
-
-  void _selectDate(DateTime? newSelectedDate) {
-    if (newSelectedDate != null) {
-      setState(() {
-        _selectedDate.value = newSelectedDate;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              'End Date: ${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}'),
-        ));
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        OutlinedButton(
-          onPressed: () {
-            _restorableDatePickerRouteFuture.present();
-          },
-          child: const Text('End Date'),
-        ),
-        Text(
-            '${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}'),
-      ],
     );
   }
 }

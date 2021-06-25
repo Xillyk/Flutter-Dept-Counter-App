@@ -8,27 +8,13 @@ import 'package:dept_counter/page/home_page.dart';
 class RegisterLoading extends StatefulWidget {
   final Map<String, dynamic> userRegisterData;
 
-  // final Map<String, dynamic> userData = {
-  //   'name': '',
-  // };
+  RegisterLoading(this.userRegisterData);
 
   final Map<String, dynamic> userData = {
+    'username': '',
     'name': '',
-    'deptTopicList': <String, dynamic>{
-      'deptNumber': '',
-      'deptInformation': <String, dynamic>{
-        'deptTitle': '',
-        'deptInfo': '',
-        'deptTotalAmount': '',
-        'deptStartDate': '',
-        'deptEndDate': '',
-        'deptTotalMonthPayment': '',
-        'deptPaidMonth': '',
-      },
-    }
+    'deptTopicList': []
   };
-
-  RegisterLoading(this.userRegisterData);
 
   @override
   _RegisterLoadingState createState() => _RegisterLoadingState();
@@ -80,22 +66,13 @@ class _RegisterLoadingState extends State<RegisterLoading>
           'username': widget.userRegisterData['username']!,
           'password': widget.userRegisterData['password']!,
           'name': widget.userRegisterData['name']!,
-          'deptTopicList': <String, dynamic>{
-            'deptNumber': '1',
-            'deptInformation': <String, dynamic>{
-              'deptTitle': 'Test Title',
-              'deptInfo': 'Test info',
-              'deptTotalAmount': '50000',
-              'deptStartDate': '01/12/64',
-              'deptEndDate': '01/12/65',
-              'deptTotalMonthPayment': '12',
-              'deptPaidMonth': '3',
-            },
-          }
+          'deptTopicList': []
         },
       ),
     );
     if (response.statusCode == 201) {
+      widget.userData['username'] = widget.userRegisterData['username']!;
+
       widget.userData['name'] = widget.userRegisterData['name']!;
 
       Navigator.pushReplacement(context,
