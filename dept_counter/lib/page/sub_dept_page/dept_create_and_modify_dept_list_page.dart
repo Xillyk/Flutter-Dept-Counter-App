@@ -19,6 +19,7 @@ class _DeptCreateAndModifyDeptListPageState
   double sumDeptInList = 0;
 
   List deptPerMonthArray = [];
+  List deptPaidArray = [];
 
   void init() {
     totalDept =
@@ -32,6 +33,18 @@ class _DeptCreateAndModifyDeptListPageState
     for (double d in deptPerMonthArray) {
       sumDeptInList += d;
     }
+    deptPaidArray = List.filled(totalMonth, false, growable: false);
+    // print(deptPaidArray);
+  }
+
+  void mergeData() {
+    widget.newData['deptInformation']['deptPerMonthList']
+        .addAll(deptPerMonthArray);
+
+    widget.newData['deptInformation']['deptPaidMonthList']
+        .addAll(deptPaidArray);
+
+    widget.userData['deptTopicList'].add(widget.newData);
   }
 
   @override
@@ -51,8 +64,7 @@ class _DeptCreateAndModifyDeptListPageState
         floatingActionButton: FloatingActionButton.extended(
           icon: const Icon(Icons.send),
           onPressed: () {
-            widget.userData['deptTopicList'].add(widget.newData);
-
+            mergeData();
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(

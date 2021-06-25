@@ -22,20 +22,10 @@ class _DeptAddTopicInfoPageState extends State<DeptAddTopicInfoPage> {
       'deptStartDate': '',
       'deptEndDate': '',
       'deptTotalMonthPayment': '',
-      'deptPaidMonth': '',
+      'deptPerMonthList': [],
+      'deptPaidMonthList': [],
     }
   };
-
-  // void addNewData() {
-  //   print(widget.userData);
-  //   print(widget.userData['deptTopicList']);
-  //   var deptNumber = widget.userData['deptTopicList'].length + 1;
-  //   newData['deptNumber'] = '$deptNumber';
-  //   curDeptNumber = deptNumber;
-
-  //   widget.userData['deptTopicList'].add(newData);
-  //   print(widget.userData);
-  // }
 
   void setNewData() {
     var deptNumber = widget.userData['deptTopicList'].length + 1;
