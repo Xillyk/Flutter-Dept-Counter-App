@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
 class SummaryPage extends StatelessWidget {
-  const SummaryPage({Key? key}) : super(key: key);
+  final Map<String, dynamic> userData;
+
+  SummaryPage(this.userData);
+  // const SummaryPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Summary Page'),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Summary Page'),
+        ),
       ),
     );
   }

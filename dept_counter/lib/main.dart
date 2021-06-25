@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         // '/dept-create-and-modify-dept-list-page': (context) =>
         //     DeptCreateAndModifyDeptListPage(),
 
-        '/summary': (context) => SummaryPage(),
+        '/summary': (context) => SummaryPage(userData),
         '/account': (context) => AccountSettingPage(),
       },
     );

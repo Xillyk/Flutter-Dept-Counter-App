@@ -1,3 +1,4 @@
+import 'package:dept_counter/page/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dept_counter/page/sub_dept_page/dept_information_page.dart';
 import 'package:dept_counter/page/sub_dept_page/dept_add_topic_info_page.dart';
@@ -94,25 +95,32 @@ class _DeptPageState extends State<DeptPage> {
   @override
   Widget build(BuildContext context) {
     print('deptpage data = ${widget.userData}');
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Dept Page'),
-          centerTitle: true,
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => Homepage(widget.userData)));
+        return true;
+      },
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Dept Page'),
+            centerTitle: true,
+          ),
+          floatingActionButton: FloatingActionButton.extended(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DeptAddTopicInfoPage(widget.userData),
+                ),
+              );
+            },
+            label: const Text('Create'),
+          ),
+          body: _buildDeptListView(widget.userData),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          icon: const Icon(Icons.add),
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DeptAddTopicInfoPage(widget.userData),
-              ),
-            );
-          },
-          label: const Text('Create'),
-        ),
-        body: _buildDeptListView(widget.userData),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:dept_counter/page/sub_dept_page/dept_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dept_counter/page/sub_dept_page/dept_add_time_info_page.dart';
 
@@ -114,7 +115,11 @@ class _DeptAddTopicInfoPageState extends State<DeptAddTopicInfoPage> {
                       style:
                           ElevatedButton.styleFrom(primary: Colors.redAccent),
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/dept-page');
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (contex) =>
+                                    DeptPage(widget.userData)));
                       },
                       child: Text(
                         'Cancel',

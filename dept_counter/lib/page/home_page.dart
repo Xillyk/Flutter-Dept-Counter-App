@@ -1,7 +1,10 @@
+import 'dart:math';
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'package:dept_counter/page/sub_dept_page/dept_page.dart';
+import 'package:dept_counter/page/sub_summary_page/summary_page.dart';
 
 class Homepage extends StatelessWidget {
   final Map<String, dynamic> userData;
@@ -10,26 +13,29 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.amber,
-        appBar: AppBar(
-          title: Text('Home'),
-        ),
-        body: SafeArea(
-          child: Container(
-            padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                createDeptCard(context, userData),
-                createSummaryCard(context),
-              ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.amber,
+          appBar: AppBar(
+            title: Text('Home'),
+          ),
+          body: SafeArea(
+            child: Container(
+              padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  createDeptCard(context, userData),
+                  createSummaryCard(context),
+                ],
+              ),
             ),
           ),
+          drawer: HomeDrawer(userData),
         ),
-        drawer: HomeDrawer(userData),
       ),
     );
   }
@@ -75,7 +81,8 @@ class Homepage extends StatelessWidget {
             ),
           ),
           onTap: () {
-            Navigator.pushNamed(context, '/summary');
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SummaryPage(userData)));
           },
           splashColor:
               Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
