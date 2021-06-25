@@ -46,18 +46,36 @@ class _DeptPageState extends State<DeptPage> {
     // return ListTile(
     //   title: Text('${data['deptNumber']}'),
     // );
-    return InkWell(
-      child: Card(
-        child: Text('${userData['deptNumber']}'),
+    return Container(
+      height: 120.0,
+      child: InkWell(
+        child: Card(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              '# ${userData['deptNumber']}',
+              style: TextStyle(fontSize: 20.0),
+            ),
+            Text(
+              '${userData['deptInformation']['deptTitle']}',
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 25.0,
+                  color: Colors.pinkAccent),
+            ),
+          ],
+        )),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DeptInformationPage(userData),
+            ),
+          );
+        },
       ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DeptInformationPage(userData),
-          ),
-        );
-      },
     );
   }
 
