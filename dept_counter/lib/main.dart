@@ -11,8 +11,8 @@ import 'package:dept_counter/page/authen_page/register_page.dart';
 
 import 'package:dept_counter/page/sub_dept_page/dept_page.dart';
 import 'package:dept_counter/page/sub_dept_page/dept_add_topic_info_page.dart';
-import 'package:dept_counter/page/sub_dept_page/dept_add_time_info_page.dart';
-import 'package:dept_counter/page/sub_dept_page/dept_create_and_modify_dept_list_page.dart';
+// import 'package:dept_counter/page/sub_dept_page/dept_add_time_info_page.dart';
+// import 'package:dept_counter/page/sub_dept_page/dept_create_and_modify_dept_list_page.dart';
 import 'package:dept_counter/page/sub_summary_page/summary_page.dart';
 
 import 'package:dept_counter/page/account/account_setting_page.dart';

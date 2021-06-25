@@ -12,10 +12,6 @@ class DeptPage extends StatefulWidget {
 }
 
 class _DeptPageState extends State<DeptPage> {
-  void _updateListView() {
-    setState(() {});
-  }
-
   Widget _buildDeptListView(userData) {
     // print('userdata = $userData |  ${userData['deptTopicList']}');
     // if (userData['deptTopicList'].length == null) {
