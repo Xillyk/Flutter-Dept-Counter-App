@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dept_counter/page/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dept_counter/page/sub_dept_page/dept_information_page.dart';
@@ -54,30 +56,33 @@ class _DeptPageState extends State<DeptPage> {
       height: 120.0,
       child: InkWell(
         child: Card(
+            // color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+            color: Color(
+                userData['deptTopicList'][deptIndex]['color']['cardColor']),
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              '# ${userData['deptTopicList'][deptIndex]['deptNumber']} ${userData['deptTopicList'][deptIndex]['deptInformation']['deptTitle']}',
-              style: TextStyle(fontSize: 20.0),
-            ),
-            // Text(
-            //   '${userData['deptInformation']['deptTitle']}',
-            //   style: TextStyle(
-            //       fontWeight: FontWeight.w500,
-            //       fontSize: 25.0,
-            //       color: Colors.pinkAccent),
-            // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
                 Text(
-                    'Month $lastMonthOfPaid / ${userData['deptTopicList'][deptIndex]['deptInformation']['deptTotalMonthPayment']}'),
+                  '# ${userData['deptTopicList'][deptIndex]['deptNumber']} ${userData['deptTopicList'][deptIndex]['deptInformation']['deptTitle']}',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                // Text(
+                //   '${userData['deptInformation']['deptTitle']}',
+                //   style: TextStyle(
+                //       fontWeight: FontWeight.w500,
+                //       fontSize: 25.0,
+                //       color: Colors.pinkAccent),
+                // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                        'Month $lastMonthOfPaid / ${userData['deptTopicList'][deptIndex]['deptInformation']['deptTotalMonthPayment']}'),
+                  ],
+                )
               ],
-            )
-          ],
-        )),
+            )),
         onTap: () {
           Navigator.push(
             context,

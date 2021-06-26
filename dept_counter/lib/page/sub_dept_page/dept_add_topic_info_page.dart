@@ -1,5 +1,7 @@
-import 'package:dept_counter/page/sub_dept_page/dept_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+
+import 'package:dept_counter/page/sub_dept_page/dept_page.dart';
 import 'package:dept_counter/page/sub_dept_page/dept_add_time_info_page.dart';
 
 class DeptAddTopicInfoPage extends StatefulWidget {
@@ -11,6 +13,14 @@ class DeptAddTopicInfoPage extends StatefulWidget {
 }
 
 class _DeptAddTopicInfoPageState extends State<DeptAddTopicInfoPage> {
+  bool lightTheme = true;
+  Color currentColor = Colors.limeAccent;
+  List<Color> currentColors = [Colors.limeAccent, Colors.green];
+
+  void changeColor(Color color) => setState(() => currentColor = color);
+  void changeColors(List<Color> colors) =>
+      setState(() => currentColors = colors);
+
   final _formKey = GlobalKey<FormState>();
   // var curDeptNumber;
 
@@ -25,6 +35,10 @@ class _DeptAddTopicInfoPageState extends State<DeptAddTopicInfoPage> {
       'deptTotalMonthPayment': '',
       'deptPerMonthList': [],
       'deptPaidMonthList': [],
+    },
+    'color': <String, dynamic>{
+      'cardColor': 0xffec407a,
+      'titleColor': '',
     }
   };
 
@@ -45,7 +59,7 @@ class _DeptAddTopicInfoPageState extends State<DeptAddTopicInfoPage> {
           ),
           body: Form(
             key: _formKey,
-            child: ListView(
+            child: Column(
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -107,6 +121,40 @@ class _DeptAddTopicInfoPageState extends State<DeptAddTopicInfoPage> {
                       return null;
                     },
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return MaterialColorPicker(
+                                  onColorChange: (Color color) {
+                                    setState(() {
+                                      newData['color']['cardColor'] =
+                                          color.value;
+                                    });
+                                    // print('Color change to -> $color');
+                                  },
+                                  selectedColor: Colors.pinkAccent);
+                            });
+                      },
+                      child: Text('Select Card Color'),
+                      style: ElevatedButton.styleFrom(
+                          primary: Color(newData['color']
+                              ['cardColor']), //background color of button
+
+                          // side: BorderSide(
+                          //     width: 3,
+                          //     color: Colors.brown), //border width and color
+                          // elevation: 3, //elevation of button
+                          shape: RoundedRectangleBorder(
+                              //to set border radius to button
+                              borderRadius: BorderRadius.circular(30)),
+                          padding:
+                              EdgeInsets.all(20) //content padding inside button
+                          )),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

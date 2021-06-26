@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:dept_counter/page/authen_page/register_add_info_page.dart';
 import 'package:flutter/material.dart';
 
