@@ -1,8 +1,8 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import 'package:dept_counter/page/authen_page/login_page.dart';
 import 'package:dept_counter/page/sub_dept_page/dept_page.dart';
 import 'package:dept_counter/page/sub_summary_page/summary_page.dart';
 
@@ -147,6 +147,9 @@ class HomeDrawer extends StatelessWidget {
               ),
             ),
             onTap: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => LoginPage()));
+
               // ScaffoldMessenger.of(context).showSnackBar(
               //   SnackBar(
               //     content: Text('See you soon'),

@@ -26,9 +26,15 @@ class SummaryPage extends StatelessWidget {
 
       lastIndexOfPaid =
           item['deptInformation']['deptPaidMonthList'].lastIndexOf(true);
-      for (var amount in item['deptInformation']['deptPerMonthList']) {
-        totalPaidOfMonth += amount;
-      }
+
+      item['deptInformation']['deptPerMonthList']
+          .asMap()
+          .forEach((index, amount) {
+        if (index <= lastIndexOfPaid) {
+          totalPaidOfMonth += amount;
+        }
+      });
+
       print('total paid of month = $totalPaidOfMonth');
       totalPaidAmount += totalPaidOfMonth;
       totalPaidOfMonth = 0;
@@ -39,7 +45,7 @@ class SummaryPage extends StatelessWidget {
 
   void calculatePercentage() {
     try {
-      percentage = totalPaidAmount / totalDeptAmount;
+      percentage = (totalPaidAmount / totalDeptAmount) * 100;
     } catch (err) {
       print(err);
       percentage = 0;
