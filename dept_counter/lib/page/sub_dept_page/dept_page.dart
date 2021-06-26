@@ -24,7 +24,7 @@ class _DeptPageState extends State<DeptPage> {
       return ListView.builder(
         padding: EdgeInsets.all(10.0),
         itemCount: userData['deptTopicList'].length,
-        itemBuilder: (context, i) {
+        itemBuilder: (context, deptIndex) {
           // if (i.isOdd)
           //   // return const Divider();
           //   return SizedBox(height: 20);
@@ -33,16 +33,23 @@ class _DeptPageState extends State<DeptPage> {
           // }
           // final index = i ~/ 2;
 
-          return _buildDeptCard(userData['deptTopicList'][i]);
+          // return _buildDeptCard(userData['deptTopicList'][i]);
+
+          return _buildDeptCard(userData, deptIndex);
         },
       );
     }
   }
 
-  Widget _buildDeptCard(userData) {
-    // return ListTile(
-    //   title: Text('${data['deptNumber']}'),
-    // );
+  Widget _buildDeptCard(userData, deptIndex) {
+    var lastIndexOfPaid = userData['deptTopicList'][deptIndex]
+            ['deptInformation']['deptPaidMonthList']
+        .lastIndexOf(true);
+    var lastMonthOfPaid = lastIndexOfPaid + 1;
+    if (lastIndexOfPaid == -1) {
+      lastIndexOfPaid = 0;
+    }
+
     return Container(
       height: 120.0,
       child: InkWell(
@@ -52,23 +59,30 @@ class _DeptPageState extends State<DeptPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              '# ${userData['deptNumber']}',
+              '# ${userData['deptTopicList'][deptIndex]['deptNumber']} ${userData['deptTopicList'][deptIndex]['deptInformation']['deptTitle']}',
               style: TextStyle(fontSize: 20.0),
             ),
-            Text(
-              '${userData['deptInformation']['deptTitle']}',
-              style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 25.0,
-                  color: Colors.pinkAccent),
-            ),
+            // Text(
+            //   '${userData['deptInformation']['deptTitle']}',
+            //   style: TextStyle(
+            //       fontWeight: FontWeight.w500,
+            //       fontSize: 25.0,
+            //       color: Colors.pinkAccent),
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                    'Month $lastMonthOfPaid / ${userData['deptTopicList'][deptIndex]['deptInformation']['deptTotalMonthPayment']}'),
+              ],
+            )
           ],
         )),
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DeptInformationPage(userData),
+              builder: (context) => DeptInformationPage(userData, deptIndex),
             ),
           );
         },

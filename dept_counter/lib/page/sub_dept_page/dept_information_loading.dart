@@ -1,23 +1,25 @@
 import 'dart:convert';
 
-import 'package:dept_counter/page/sub_dept_page/dept_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class DeptLoading extends StatefulWidget {
+import 'package:dept_counter/page/sub_dept_page/dept_information_page.dart';
+
+class DeptInformationLoading extends StatefulWidget {
   final Map<String, dynamic> userData;
-  DeptLoading(this.userData);
+  final deptIndex;
+  DeptInformationLoading(this.userData, this.deptIndex);
 
   @override
-  _DeptLoadingState createState() => _DeptLoadingState();
+  _DeptInformationLoadingState createState() => _DeptInformationLoadingState();
 }
 
-class _DeptLoadingState extends State<DeptLoading> {
-  void sendNewDeptDataToServer() async {
+class _DeptInformationLoadingState extends State<DeptInformationLoading> {
+  void sendDataToServer() async {
     print('Sending');
     print(widget.userData);
     http.Response response = await http.post(
-      Uri.parse('http://10.0.2.2:3000/update-new-dept'),
+      Uri.parse('http://10.0.2.2:3000/update-paid-dept'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -29,15 +31,18 @@ class _DeptLoadingState extends State<DeptLoading> {
       ),
     );
     if (response.statusCode == 201) {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => DeptPage(widget.userData)));
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  DeptInformationPage(widget.userData, widget.deptIndex)));
     }
   }
 
   @override
   void initState() {
     super.initState();
-    sendNewDeptDataToServer();
+    sendDataToServer();
   }
 
   @override
