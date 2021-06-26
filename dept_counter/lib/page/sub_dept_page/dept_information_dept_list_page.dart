@@ -89,67 +89,133 @@ class _DeptInformationDeptListPageState
               ],
               rows: List<DataRow>.generate(
                 totalMonth,
-                (index) => DataRow(
-                  color: MaterialStateProperty.resolveWith<Color?>(
-                      (Set<MaterialState> states) {
-                    // All rows will have the same selected color.
-                    if (states.contains(MaterialState.selected)) {
-                      return Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withOpacity(0.08);
-                    }
-                    // Even rows will have a grey color.
-                    if (lastIndexOfPaid == -1) {
-                      if (index == 0) {
-                        return Colors.red.withOpacity(0.4);
-                      } else {
-                        return Colors.amber.withOpacity(0.4);
+                (monthIndex) => DataRow(
+                    color: MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                      // All rows will have the same selected color.
+                      if (states.contains(MaterialState.selected)) {
+                        return Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withOpacity(0.08);
                       }
-                    } else {
-                      if (index <= lastIndexOfPaid) {
-                        return Colors.green.withOpacity(0.4);
-                      } else if (index == (lastIndexOfPaid + 1)) {
-                        return Colors.red.withOpacity(0.4);
+                      // Even rows will have a grey color.
+                      if (lastIndexOfPaid == -1) {
+                        if (monthIndex == 0) {
+                          return Colors.red.withOpacity(0.4);
+                        } else {
+                          return Colors.amber.withOpacity(0.4);
+                        }
                       } else {
-                        return Colors.amber.withOpacity(0.4);
+                        if (monthIndex <= lastIndexOfPaid) {
+                          return Colors.green.withOpacity(0.4);
+                        } else if (monthIndex == (lastIndexOfPaid + 1)) {
+                          return Colors.red.withOpacity(0.4);
+                        } else {
+                          return Colors.amber.withOpacity(0.4);
+                        }
                       }
-                    }
 
-                    // else {}
-                    // return null; // Use default value for other states and odd rows.
-                  }),
-                  cells: <DataCell>[
-                    DataCell(Checkbox(
-                      checkColor: Colors.white,
-                      // fillColor: MaterialStateProperty.resolveWith(getColor),
-                      value: widget.userData['deptTopicList'][widget.deptIndex]
-                          ['deptInformation']['deptPaidMonthList'][index],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          widget.userData['deptTopicList'][widget.deptIndex]
-                                  ['deptInformation']['deptPaidMonthList']
-                              [index] = value!;
-                          // print(
-                          //     'paid = > ${widget.userData['deptInformation']['deptPaidMonthList']}');
-                        });
-                      },
-                    )),
+                      // else {}
+                      // return null; // Use default value for other states and odd rows.
+                    }),
+                    cells: List<DataCell>.generate(3, (cellIndex) {
+                      if (cellIndex == 0) {
+                        if (lastIndexOfPaid == -1 && monthIndex == 0) {
+                          return DataCell(Checkbox(
+                            checkColor: Colors.white,
+                            // fillColor: MaterialStateProperty.resolveWith(getColor),
+                            value: widget.userData['deptTopicList']
+                                    [widget.deptIndex]['deptInformation']
+                                ['deptPaidMonthList'][monthIndex],
+                            onChanged: (bool? value) {
+                              setState(() {
+                                widget.userData['deptTopicList']
+                                        [widget.deptIndex]['deptInformation']
+                                    ['deptPaidMonthList'][monthIndex] = value!;
+                              });
+                            },
+                          ));
+                        } else if (monthIndex == (lastIndexOfPaid + 1)) {
+                          return DataCell(Checkbox(
+                            checkColor: Colors.white,
+                            // fillColor: MaterialStateProperty.resolveWith(getColor),
+                            value: widget.userData['deptTopicList']
+                                    [widget.deptIndex]['deptInformation']
+                                ['deptPaidMonthList'][monthIndex],
+                            onChanged: (bool? value) {
+                              setState(() {
+                                widget.userData['deptTopicList']
+                                        [widget.deptIndex]['deptInformation']
+                                    ['deptPaidMonthList'][monthIndex] = value!;
+                              });
+                            },
+                          ));
+                        } else {
+                          return DataCell(Checkbox(
+                            checkColor: Colors.white,
+                            // fillColor: MaterialStateProperty.resolveWith(getColor),
+                            value: widget.userData['deptTopicList']
+                                    [widget.deptIndex]['deptInformation']
+                                ['deptPaidMonthList'][monthIndex],
+                            onChanged: null,
+                          ));
+                        }
+                      } else if (cellIndex == 1) {
+                        return DataCell(Text('${monthIndex + 1}'));
+                      } else {
+                        return DataCell(Text(
+                          '${widget.userData['deptTopicList'][widget.deptIndex]['deptInformation']['deptPerMonthList'][monthIndex].toStringAsFixed(2)}',
+                        ));
+                      }
+                    })
 
-                    // DataCell(DeptInfoCheckBox()),
-                    DataCell(Text('${index + 1}')),
-                    DataCell(Text(
-                      '${widget.userData['deptTopicList'][widget.deptIndex]['deptInformation']['deptPerMonthList'][index].toStringAsFixed(2)}',
-                    )
-                        // TextFormField(
-                        //   initialValue:
-                        //       '${widget.userData['deptInformation']['deptPerMonthList'][index]}',
-                        //   readOnly: true,
-                        // ),
-                        // showEditIcon: true,
-                        )
-                  ],
-                ),
+                    // color: MaterialStateProperty.resolveWith<Color?>(
+                    //     (Set<MaterialState> states) {
+                    //   // All rows will have the same selected color.
+                    //   if (states.contains(MaterialState.selected)) {
+                    //     return Theme.of(context)
+                    //         .colorScheme
+                    //         .primary
+                    //         .withOpacity(0.08);
+                    //   }
+                    //   // Even rows will have a grey color.
+                    //   if (lastIndexOfPaid == -1) {
+                    //     if (index == 0) {
+                    //       return Colors.red.withOpacity(0.4);
+                    //     } else {
+                    //       return Colors.amber.withOpacity(0.4);
+                    //     }
+                    //   } else {
+                    //     if (index <= lastIndexOfPaid) {
+                    //       return Colors.green.withOpacity(0.4);
+                    //     } else if (index == (lastIndexOfPaid + 1)) {
+                    //       return Colors.red.withOpacity(0.4);
+                    //     } else {
+                    //       return Colors.amber.withOpacity(0.4);
+                    //     }
+                    //   }
+
+                    // <DataCell>[
+                    //   DataCell(Checkbox(
+                    //     checkColor: Colors.white,
+                    //     // fillColor: MaterialStateProperty.resolveWith(getColor),
+                    //     value: widget.userData['deptTopicList'][widget.deptIndex]
+                    //         ['deptInformation']['deptPaidMonthList'][index],
+                    //     onChanged: (bool? value) {
+                    //       setState(() {
+                    //         widget.userData['deptTopicList'][widget.deptIndex]
+                    //                 ['deptInformation']['deptPaidMonthList']
+                    //             [index] = value!;
+                    //       });
+                    //     },
+                    //   )),
+                    //   DataCell(Text('${monthIndex + 1}')),
+                    //   DataCell(Text(
+                    //     '${widget.userData['deptTopicList'][widget.deptIndex]['deptInformation']['deptPerMonthList'][index].toStringAsFixed(2)}',
+                    //   ))
+                    // ],
+                    ),
               ),
             ),
           ),
@@ -158,40 +224,3 @@ class _DeptInformationDeptListPageState
     );
   }
 }
-
-// class DeptInfoCheckBox extends StatefulWidget {
-//   const DeptInfoCheckBox({Key? key}) : super(key: key);
-
-//   @override
-//   _CheckDeptInfoBoxState createState() => _CheckDeptInfoBoxState();
-// }
-
-// class _CheckDeptInfoBoxState extends State<DeptInfoCheckBox> {
-//   bool isChecked = false;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     Color getColor(Set<MaterialState> states) {
-//       const Set<MaterialState> interactiveStates = <MaterialState>{
-//         MaterialState.pressed,
-//         MaterialState.hovered,
-//         MaterialState.focused,
-//       };
-//       if (states.any(interactiveStates.contains)) {
-//         return Colors.blue;
-//       }
-//       return Colors.red;
-//     }
-
-//     return Checkbox(
-//       checkColor: Colors.white,
-//       fillColor: MaterialStateProperty.resolveWith(getColor),
-//       value: isChecked,
-//       onChanged: (bool? value) {
-//         setState(() {
-//           isChecked = value!;
-//         });
-//       },
-//     );
-//   }
-// }
