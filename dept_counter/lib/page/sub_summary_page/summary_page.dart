@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class SummaryPage extends StatelessWidget {
   final Map<String, dynamic> userData;
@@ -15,6 +16,11 @@ class SummaryPage extends StatelessWidget {
   double totalPaidOfMonth = 0;
 
   double percentage = 0;
+
+  Map<String, double> dataMap = {
+    'Total_Dept_Amount': 0.0,
+    'Total_Paid_Amount': 0.0,
+  };
 
   void init() {
     dynamic dynamicList = userData['deptTopicList'];
@@ -41,6 +47,9 @@ class SummaryPage extends StatelessWidget {
     }
     print('total paid amount = $totalPaidAmount');
     calculatePercentage();
+
+    dataMap['Total_Dept_Amount'] = totalDeptAmount;
+    dataMap['Total_Paid_Amount'] = totalPaidAmount;
   }
 
   void calculatePercentage() {
@@ -88,7 +97,35 @@ class SummaryPage extends StatelessWidget {
                 initialValue: '${percentage.toStringAsFixed(2)} %',
                 readOnly: true,
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 65.0),
+              // PieChart(dataMap: dataMap),
+              PieChart(
+                dataMap: dataMap,
+                animationDuration: Duration(milliseconds: 2000),
+                chartLegendSpacing: 45,
+                chartRadius: MediaQuery.of(context).size.width / 3.2,
+                // colorList: colorList,
+                initialAngleInDegree: 0,
+                chartType: ChartType.ring,
+                ringStrokeWidth: 35,
+                // centerText: "HYBRID",
+                legendOptions: LegendOptions(
+                  showLegendsInRow: false,
+                  legendPosition: LegendPosition.right,
+                  showLegends: true,
+                  // legendShape: _BoxShape.circle,
+                  legendTextStyle: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                chartValuesOptions: ChartValuesOptions(
+                  showChartValueBackground: true,
+                  showChartValues: true,
+                  showChartValuesInPercentage: false,
+                  showChartValuesOutside: false,
+                  decimalPlaces: 2,
+                ),
+              )
             ],
           ),
         ),
